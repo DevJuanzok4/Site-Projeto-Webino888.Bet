@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Jogo Aviãozinho</title>
+  <style>
+    #aviao {
+      position: absolute;
+      top: 300px; /* Altura inicial do avião */
+    }
+  </style>
+</head>
+<body>
+  <h1>Jogo Aviãozinho</h1>
+  <form id="jogoForm">
+    <label for="valorX">Digite o valor de X:</label>
+    <input type="number" id="valorX" required>
+    <button type="button" onclick="iniciarJogo()">Iniciar</button>
+    <button type="button" onclick="pararAviao()">Parar</button>
+  </form>
+  <div id="aviao">Avião</div>
+
+  <script>
+    let aviaoElement = document.getElementById("aviao");
+    let aviaoInterval; // Variável para armazenar o intervalo de subida do avião
+
+    function alturaAleatoria() {
+      return Math.floor(Math.random() * 1000); // Altura aleatória entre 0 e 999
+    }
+
+    function iniciarJogo() {
+      let x = parseInt(document.getElementById("valorX").value);
+      if (isNaN(x) || x <= 0) {
+        alert("Digite um valor válido para X.");
+        return;
+      }
+
+      let altura = alturaAleatoria();
+      let resultado = altura * x;
+      let topPosition = 300; // Altura inicial do avião
+
+      aviaoElement.style.top = topPosition + "px"; // Define a altura inicial do avião
+
+      aviaoInterval = setInterval(function () {
+        topPosition -= 10; // Controla a velocidade de subida do avião
+        aviaoElement.style.top = topPosition + "px";
+
+        if (topPosition <= altura) {
+          clearInterval(aviaoInterval);
+          if (confirm(`Avião subiu para ${altura} metros de altura! Resultado: ${altura} * ${x} = ${resultado}. Deseja sacar o dinheiro?`)) {
+            alert("Você ganhou o dinheiro!");
+          } else {
+            alert("Você perdeu o dinheiro!");
+          }
+        }
+
+        if (topPosition <= 0) {
+          clearInterval(aviaoInterval);
+          alert("O avião saiu do limite da tela. Você perdeu o dinheiro!");
+        }
+      }, 100); // Intervalo de atualização da posição do avião (100ms)
+    }
+
+    function pararAviao() {
+      clearInterval(aviaoInterval);
+      alert("Você parou o avião. Não ganhou o dinheiro.");
+    }
+  </script>
+</body>
+</html>

@@ -2,10 +2,13 @@
 <html>
 <head>
   <title>Loteria</title>
-  <style>    body {
+  <style>
+
+  body {
       font-family: Arial, sans-serif;
-      background-color: #f9f9f9;
+      background-color: #0056b3;
       margin: 20px;
+
     }
 
     h1 {
@@ -14,6 +17,7 @@
     }
 
     form {
+      width: 300px;
       margin: 0 auto;
       background-color: #fff;
       padding: 20px;
@@ -81,6 +85,10 @@
       margin-top: 20px;
     }
 
+    .container{
+      background-color: #fff;
+    }
+
     @media screen and (max-width: 600px) {
       form, .resultado {
         max-width: 300px;
@@ -96,9 +104,14 @@
         max-width: 150px;
       }
     }
+
+
+
   </style>
 </head>
 <body>
+
+  <div class="container">
   <h1>Bem-vindo à loteria dos Ferrados!</h1>
   <form action="/comprar_bilhete" method="post">
     <label for="nome">Nome:</label>
@@ -117,5 +130,12 @@
   </center>
   <br>
   <a href="/sortear_vencedor">Sortear Vencedor</a>
+
+  <br>
+  <br>
+  <br>
+
+   <a href="index.html">VOLTAR</a>
+     <div class="container">
 </body>
 </html>
