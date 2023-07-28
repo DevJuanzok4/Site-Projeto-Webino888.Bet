@@ -73,3 +73,12 @@ footer {
     text-align: center;
     padding: 10px;
 }
+
+/* O restante do CSS permanece o mesmo */
+
+body {
+    font-family: "Hammersmith", Arial, sans-serif;
+    /* Outras propriedades CSS */
+}
+
+/* O restante do CSS permanece o mesmo */
