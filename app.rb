@@ -45,6 +45,7 @@ def loteria
 end
 
 get '/' do
+  @resultado = session.delete(:resultado) # Limpa o resultado anterior
   erb :index
 end
 
@@ -53,10 +54,11 @@ post '/comprar_bilhete' do
   numero = params[:numero].to_i
   result = loteria.comprar_bilhete(nome, numero)
   session[:loteria] = loteria
-  result
+  redirect '/'
 end
 
 get '/sortear_vencedor' do
   @resultado = loteria.sortear_vencedor
-  erb :resultado
+  session[:resultado] = @resultado
+  redirect '/'
 end

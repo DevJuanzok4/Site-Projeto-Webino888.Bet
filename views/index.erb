@@ -2,6 +2,101 @@
 <html>
 <head>
   <title>Loteria</title>
+  <style>    body {
+      font-family: Arial, sans-serif;
+      background-color: #f9f9f9;
+      margin: 20px;
+    }
+
+    h1 {
+      color: #333;
+      text-align: center;
+    }
+
+    form {
+      margin: 0 auto;
+      background-color: #fff;
+      padding: 20px;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 10px;
+    }
+
+    input[type="text"],
+    input[type="number"],
+    input[type="submit"] {
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 15px;
+      border: 1px solid #ddd;
+      border-radius: 3px;
+      box-sizing: border-box;
+    }
+
+    input[type="submit"] {
+      background-color: #007bff;
+      background-image: linear-gradient(to right, #007bff, #0056b3);
+      color: #fff;
+      cursor: pointer;
+      transition: background-color 0.3s ease-in-out;
+    }
+
+    input[type="submit"]:hover {
+      background-color: #0056b3;
+    }
+
+    .resultado {
+      max-width: 400px;
+      margin: 20px auto;
+      padding: 10px;
+      background-color: #fff;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+    }
+
+    .resultado h2 {
+      color: #333;
+      text-align: center;
+    }
+
+    .resultado p {
+      margin-top: 10px;
+    }
+
+    a {
+      display: block;
+      max-width: 200px;
+      margin: 0 auto;
+      background-color: #007bff;
+      background-image: linear-gradient(to right, #007bff, #0056b3);
+      color: #fff;
+      text-align: center;
+      text-decoration: none;
+      padding: 10px 20px;
+      border-radius: 5px;
+      margin-top: 20px;
+    }
+
+    @media screen and (max-width: 600px) {
+      form, .resultado {
+        max-width: 300px;
+      }
+    }
+
+    @media screen and (max-width: 480px) {
+      form, .resultado {
+        max-width: 250px;
+      }
+
+      a {
+        max-width: 150px;
+      }
+    }
+  </style>
 </head>
 <body>
   <h1>Bem-vindo à loteria dos Ferrados!</h1>
@@ -14,10 +109,12 @@
     <br>
     <input type="submit" value="Comprar Bilhete">
   </form>
+  <center>
   <% if @resultado %>
     <h2>Resultado da Loteria</h2>
-    <p><%= @resultado %></p>
+    <p id="result"><%= @resultado %></p>
   <% end %>
+  </center>
   <br>
   <a href="/sortear_vencedor">Sortear Vencedor</a>
 </body>
