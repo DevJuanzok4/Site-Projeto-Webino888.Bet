@@ -1,28 +1,24 @@
-<!-- views/index.erb -->
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Loteria do Cassino</title>
+  <title>Loteria</title>
 </head>
 <body>
-  <h1>Bem-vindo à loteria do cassino!</h1>
-
-  <h2>Comprar Bilhete</h2>
-  <form action="/comprar" method="post">
+  <h1>Bem-vindo à loteria dos Ferrados!</h1>
+  <form action="/comprar_bilhete" method="post">
     <label for="nome">Nome:</label>
-    <input type="text" name="nome" id="nome" required>
+    <input type="text" id="nome" name="nome">
     <br>
     <label for="numero">Número:</label>
-    <input type="number" name="numero" id="numero" required>
+    <input type="number" id="numero" name="numero">
     <br>
-    <button type="submit">Comprar Bilhete</button>
+    <input type="submit" value="Comprar Bilhete">
   </form>
-
-  <h2>Sortear Vencedor</h2>
-  <form action="/sortear" method="get">
-    <button type="submit">Sortear Vencedor</button>
-  </form>
-
-
+  <% if @resultado %>
+    <h2>Resultado da Loteria</h2>
+    <p><%= @resultado %></p>
+  <% end %>
+  <br>
+  <a href="/sortear_vencedor">Sortear Vencedor</a>
 </body>
 </html>
