@@ -1,28 +1,62 @@
-# app.rb
 require 'sinatra'
-require './loteria' # O arquivo contendo a classe Loteria e Bilhete
+require 'securerandom'
 
-# Configuração do Sinatra
-set :bind, '0.0.0.0'
-set :port, 4567
+# Configura o diretório para as views (arquivos .erb)
+set :views, File.join(File.dirname(__FILE__), 'views')
 
-# Instanciar a classe Loteria
-loteria = Loteria.new
+# Classe Bilhete
+class Bilhete
+  attr_reader :numero, :nome
 
-# Rota para a página inicial
+  def initialize(nome, numero)
+    @nome = nome
+    @numero = numero
+  end
+end
+
+# Classe Loteria
+class Loteria
+  attr_reader :bilhetes
+
+  def initialize
+    @bilhetes = []
+  end
+
+  # Método para comprar bilhete
+  def comprar_bilhete(nome, numero)
+    bilhete = Bilhete.new(nome, numero)
+    @bilhetes << bilhete
+    "Bilhete comprado por #{nome}: #{numero}"
+  end
+
+  # Método para sortear o vencedor
+  def sortear_vencedor
+    vencedor = @bilhetes.sample
+    "O vencedor da loteria é #{vencedor.nome} com o número #{vencedor.numero}!"
+  end
+end
+
+# Configuração da sessão
+enable :sessions
+
+# Método para criar ou recuperar a instância da Loteria na sessão
+def loteria
+  session[:loteria] ||= Loteria.new
+end
+
 get '/' do
   erb :index
 end
 
-# Rota para processar o formulário de compra de bilhete
-post '/comprar' do
+post '/comprar_bilhete' do
   nome = params[:nome]
   numero = params[:numero].to_i
-  loteria.comprar_bilhete(nome, numero)
-  redirect '/'
+  result = loteria.comprar_bilhete(nome, numero)
+  session[:loteria] = loteria
+  result
 end
 
-# Rota para sortear o vencedor
-get '/sortear' do
-  loteria.sortear_vencedor
+get '/sortear_vencedor' do
+  @resultado = loteria.sortear_vencedor
+  erb :resultado
 end

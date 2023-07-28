@@ -1,68 +1,68 @@
 class Bilhete
   attr_reader :numero, :nome
 
-  def initialize(nome, numero)
-     @nome = nome
-     @numero = numero
+  set :views, File.join(File.dirname(__FILE__), 'views')
 
+  get '/' do
+    erb :index
   end
- end
+  ```
+  def initialize(nome, numero)
+    @nome = nome
+    @numero = numero
+  end
+end
 
+# Classe Loteria
+class Loteria
+  def initialize
+    @bilhetes = []
+  end
 
- #Classe loteria
-   class loteria
-     def initialize
-           @bilhetes = []
+  # Método para compra de bilhete
+  def comprar_bilhete(nome, numero)
+    bilhete = Bilhete.new(nome, numero)
+    @bilhetes << bilhete
+    puts "Bilhete comprado por #{nome}: #{numero}"
+  end
 
-     end
+  # Sortear o vencedor
+  def sortear_vencedor
+    vencedor = @bilhetes.sample
+    puts "O vencedor da loteria é #{vencedor.nome} com o número #{vencedor.numero}!"
+  end
+end
 
-     #Método para compra de bilhete
-     def comprar_bilhete(nome, numero)
-         bilhete = Bilhete.new(nome, numero)
-         @bilhete << bilhete
-         puts "Bilhete comprado por este ferrado aqui #{nome} : #{numero}"
-     end
+def main
+  loteria = Loteria.new
 
-     #sortear o infeliz
+  puts "Bem-vindo à loteria do cassino!"
 
-     def sortear_vencedor
-     vencedor = @bilhetes.sample
-     puts "o vencedor de loteria é #{vencedor.nome} com o número #{vencedor.numero}!"
-     end
- end
+  loop do
+    puts "\nEscolha uma opção:"
+    puts "1 - Comprar bilhete"
+    puts "2 - Sortear vencedor"
+    puts "3 - Sair"
 
- def main
- Loteria = Loteria.new
+    escolha = gets.chomp.to_i
 
- puts "Bem vindo á loteria dos Ferrados!"
-
- loop do
-      puts "\nEscolha uma opção: "
-      puts "1 - Quero Comprar a merda deste bilhete"
-      puts "2 - Sorteie a merda do Vencedor"
-      puts "3 - Sair desta bosta"
-
-      escolha = gets.chomp.to_i
-
-      case escolha
-      when 1
-         print "Fale a merda do seu nome: "
-         nome = gets.chomp
-         print "Escolha a desgraça do número: "
-         numero = gets.chomp.to_i
-         loteria.comprar_bilhete(nome, numero)
-
-      when 2
-         loteria.sortear_vencedor
-      when 3
-         puts "Obrigado por estar perdendo seu tempo aqui! Volte sempre "
-
+    case escolha
+    when 1
+      print "Digite seu nome: "
+      nome = gets.chomp
+      print "Escolha um número: "
+      numero = gets.chomp.to_i
+      loteria.comprar_bilhete(nome, numero)
+    when 2
+      loteria.sortear_vencedor
+    when 3
+      puts "Obrigado por jogar! Volte sempre!"
       break
+    else
+      puts "Opção inválida. Tente novamente."
+    end
+  end
+end
 
-
-
-      else
-        puts "o SEU MERDA, DIGITA ISSO DIREITO"
-      end
-
- end
+# Iniciar o programa
+main
